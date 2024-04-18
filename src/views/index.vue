@@ -1,10 +1,10 @@
 <template>
-  <div>
-    这是 index.vue
+  <div id="container">
+    <p>这是 index.vue</p>
+    <router-link to="/header">我要去header</router-link>&nbsp;
+    <router-link to="/ls">我要去left-side</router-link>
+    <router-view></router-view>
   </div>
-  <router-link to="/header">我要去header</router-link>&nbsp;
-  <router-link to="/ls">我要去ls</router-link>
-  <router-view></router-view>
 </template>
 
 <script>
@@ -14,5 +14,8 @@ export default {
 </script>
 
 <style scoped>
-
+#container {
+  height: 100%;
+  background-color: rgb(240,245,249);
+}
 </style>
