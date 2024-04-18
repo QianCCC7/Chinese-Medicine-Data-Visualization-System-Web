@@ -1,15 +1,19 @@
 <template>
   <div id="container">
-    <p>这是 index.vue</p>
-    <router-link to="/header">我要去header</router-link>&nbsp;
-    <router-link to="/ls">我要去left-side</router-link>
-    <router-view></router-view>
+    <Header id="header"></Header>
+    <LeftSide id="left-side"></LeftSide>
   </div>
 </template>
 
 <script>
+import Header from "@/components/Header.vue";
+import LeftSide from "@/components/LeftSide.vue";
 export default {
   name: "index",
+  components: {
+    Header,
+    LeftSide,
+  }
 }
 </script>
 
@@ -17,5 +21,20 @@ export default {
 #container {
   height: 100%;
   background-color: rgb(240,245,249);
+}
+#header {
+  height: 50px;
+  background-color: white;
+  text-align: center;
+  line-height: 50px;
+}
+#left-side {
+  width: 200px;
+  /* 高度为: container.height - height.height */
+  height: calc(100% - 50px);
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
