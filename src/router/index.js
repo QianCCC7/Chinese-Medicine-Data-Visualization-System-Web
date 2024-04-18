@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import index from "@/views/index.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -8,7 +7,16 @@ const router = createRouter({
         {
             path: "/",
             name: "index",
-            component: index,
+            component: () => import("@/views/index.vue"),
+            children: [{
+                path: "/header",
+                name: "header",
+                component: () => import("@/components/Header.vue")
+            }, {
+                path: "/ls",
+                name: "ls",
+                component: () => import("@/components/LeftSide.vue"),
+            }],
         },
     ],
 });
