@@ -48,7 +48,6 @@ export default {
   flex-direction: column;
 }
 #main {
-  background-color: pink;
   width: calc(100% - 200px);
   display: flex;
   align-items: center;
