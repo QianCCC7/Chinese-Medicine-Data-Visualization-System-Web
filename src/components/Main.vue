@@ -8,6 +8,7 @@
 <script>
 // 2. 引入 echarts库
 import * as echarts from "echarts"
+import {test} from "@/api/test-request";
 
 export default {
   name: "Main",
@@ -188,84 +189,92 @@ export default {
       ]
     }
   },
-  mounted() {
-    // 3. 初始化图表
-    let myEcharts = echarts.init(this.$refs.myEcharts)
-    let option = {
-      backgroundColor: '#1a4377',
-      tooltip: {}, // 数据提示
-      series: [{
-        type: 'graph',
-        layout: 'force',
-        force: {
-          repulsion: 1000, // 点与点之间点距离
-          edgeLength: 100 // 边的长度
-        },
-        draggable: true,// 节点移动效果
-        roam: true, // 允许拖动图表移动
-        // 文字样式
-        label: {
-          normal: { // 正常样式
-            show: true, // 是否直接展示文字样式
-            color: "white"
+  methods: {
+    initEcharts() {
+      // 3. 初始化图表
+      let myEcharts = echarts.init(this.$refs.myEcharts)
+      let option = {
+        backgroundColor: '#1a4377',
+        tooltip: {}, // 数据提示
+        series: [{
+          type: 'graph',
+          layout: 'force',
+          force: {
+            repulsion: 1000, // 点与点之间点距离
+            edgeLength: 100 // 边的长度
           },
-          emphasis: { // 高亮样式
-            // color: "black"
-          }
-        },
-        data: this.map,
-        links: this.relations,
-        categories: [{
-          name: '分类1'
-        }, {
-          name: '分类2'
-        }, {
-          name: '分类3'
-        }],
-        // 设置边的样式
-        lineStyle: {
-          normal: {
-            opacity: 0.9,
-            width: 5,
-            curveness: 0
-          }
-        },
-        emphasis: {
-          focus: 'adjacency', // 节点被高亮时，与该节点相邻的其他节点也会被强调显示
+          draggable: true,// 节点移动效果
+          roam: true, // 允许拖动图表移动
+          // 文字样式
+          label: {
+            normal: { // 正常样式
+              show: true, // 是否直接展示文字样式
+              color: "white"
+            },
+            emphasis: { // 高亮样式
+              // color: "black"
+            }
+          },
+          data: this.map,
+          links: this.relations,
+          categories: [{
+            name: '分类1'
+          }, {
+            name: '分类2'
+          }, {
+            name: '分类3'
+          }],
+          // 设置边的样式
           lineStyle: {
-            width: 10 // 高亮时连线的宽度为10个像素
+            normal: {
+              opacity: 0.9,
+              width: 5,
+              curveness: 0
+            }
           },
-          scale: 1.2 // 高亮时被选中节点的缩放比例
+          emphasis: {
+            focus: 'adjacency', // 节点被高亮时，与该节点相邻的其他节点也会被强调显示
+            lineStyle: {
+              width: 10 // 高亮时连线的宽度为10个像素
+            },
+            scale: 1.2 // 高亮时被选中节点的缩放比例
+          },
+          edgeLabel: { // 渲染边数据
+            show: true,
+            position: "middle",
+            formatter: (params) => {
+              return params.data.value
+            }
+          },
+        }],
+        legend: {
+          x: 'right',
+          data: ['分类1', '分类2', '分类3'], // 关系图中，对应的图例名称要和 series中 categories的 name属性保持一致
+          textStyle: {
+            color: "white",
+            fontSize: "16px"
+          },
+          orient: "vertical"
         },
-        edgeLabel: { // 渲染边数据
-          show: true,
-          position: "middle",
-          formatter: (params) => {
-            return params.data.value
-          }
-        },
-      }],
-      legend: {
-        x: 'right',
-        data: ['分类1', '分类2', '分类3'], // 关系图中，对应的图例名称要和 series中 categories的 name属性保持一致
-        textStyle: {
-          color: "white",
-          fontSize: "16px"
-        },
-        orient: "vertical"
-      },
-      color: ['#3979d2', '#b457ff', '#82dffe'], // 如果 series没有设置颜色，则会依次循环从该列表中取颜色作为系列颜色
-    }
+        color: ['#3979d2', '#b457ff', '#82dffe'], // 如果 series没有设置颜色，则会依次循环从该列表中取颜色作为系列颜色
+      }
 
-    myEcharts.setOption(option)
-    // 节点自定义拖拽不回弹
-    // myEcharts.on('mouseup', function (params) {
-    //   let op = myEcharts.getOption();
-    //   op.series[0].data[params.dataIndex].x = params.event.offsetX;
-    //   op.series[0].data[params.dataIndex].y = params.event.offsetY;
-    //   op.series[0].data[params.dataIndex].fixed = true;
-    //   myEcharts.setOption(op);
-    // });
+      myEcharts.setOption(option)
+      // 节点自定义拖拽不回弹
+      // myEcharts.on('mouseup', function (params) {
+      //   let op = myEcharts.getOption();
+      //   op.series[0].data[params.dataIndex].x = params.event.offsetX;
+      //   op.series[0].data[params.dataIndex].y = params.event.offsetY;
+      //   op.series[0].data[params.dataIndex].fixed = true;
+      //   myEcharts.setOption(op);
+      // });
+    },
+  },
+  mounted() {
+    this.initEcharts();
+    test().then((response) => {
+      console.log(response.data)
+    })
   }
 }
 </script>
