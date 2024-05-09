@@ -17,7 +17,6 @@ export default {
         {
           name: '老大',
           symbolSize: 120,
-          draggable: true,// 节点移动效果
           category: '分类1',
           itemStyle: {
             normal: {
@@ -202,6 +201,7 @@ export default {
           repulsion: 1000, // 点与点之间点距离
           edgeLength: 100 // 边的长度
         },
+        draggable: true,// 节点移动效果
         roam: true, // 允许拖动图表移动
         // 文字样式
         label: {
@@ -230,6 +230,13 @@ export default {
             curveness: 0
           }
         },
+        emphasis: {
+          focus: 'adjacency', // 节点被高亮时，与该节点相邻的其他节点也会被强调显示
+          lineStyle: {
+            width: 10 // 高亮时连线的宽度为10个像素
+          },
+          scale: 1.2 // 高亮时被选中节点的缩放比例
+        },
         edgeLabel: { // 渲染边数据
           show: true,
           position: "middle",
@@ -249,7 +256,16 @@ export default {
       },
       color: ['#3979d2', '#b457ff', '#82dffe'], // 如果 series没有设置颜色，则会依次循环从该列表中取颜色作为系列颜色
     }
+
     myEcharts.setOption(option)
+    // 节点自定义拖拽不回弹
+    // myEcharts.on('mouseup', function (params) {
+    //   let op = myEcharts.getOption();
+    //   op.series[0].data[params.dataIndex].x = params.event.offsetX;
+    //   op.series[0].data[params.dataIndex].y = params.event.offsetY;
+    //   op.series[0].data[params.dataIndex].fixed = true;
+    //   myEcharts.setOption(op);
+    // });
   }
 }
 </script>
