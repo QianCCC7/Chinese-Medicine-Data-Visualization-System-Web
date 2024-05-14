@@ -1,14 +1,15 @@
 <template>
   <div>
     <!-- 1. 设置渲染图表的位置，注意需要给宽度和高度，否则图表不展示 -->
-    <div ref="myEcharts" style="width:1500px; height: 800px; border: 1px solid black"></div>
+<!--    <div ref="myEcharts" style="width:1500px; height: 800px; border: 1px solid black"></div>-->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 // 2. 引入 echarts库
 import * as echarts from "echarts"
-import {test} from "@/api/test-request";
+// import {test} from "@/api/test-request";
 
 export default {
   name: "Main",
@@ -111,18 +112,18 @@ export default {
     },
   },
   mounted() {
-    test().then((response) => {
-      for (let n of response.data.nodes) {
-        this.nodes.push(n)
-      }
-      for (let r of response.data.relations) {
-        this.relations.push(r)
-      }
-      for (let c of response.data.categories) {
-        this.categories.push(c)
-      }
-      this.initEcharts();
-    })
+    // test().then((response) => {
+    //   for (let n of response.data.nodes) {
+    //     this.nodes.push(n)
+    //   }
+    //   for (let r of response.data.relations) {
+    //     this.relations.push(r)
+    //   }
+    //   for (let c of response.data.categories) {
+    //     this.categories.push(c)
+    //   }
+    //   this.initEcharts();
+    // })
   }
 }
 </script>

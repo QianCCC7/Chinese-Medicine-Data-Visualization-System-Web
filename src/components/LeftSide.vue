@@ -48,6 +48,12 @@
         <template #title>Navigator Four</template>
       </el-menu-item>
     </el-menu>
+    <div class="test" @click="testClick('test1')">
+      测试1
+    </div>
+    <div class="test" @click="testClick('test2')">
+      测试2
+    </div>
   </div>
 
 </template>
@@ -74,7 +80,9 @@ export default {
     }
   },
   methods: {
-
+    testClick(router_name) {
+      this.$router.push({name: router_name})
+    },
   }
 }
 </script>
@@ -83,5 +91,14 @@ export default {
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 400px;
+}
+
+.test {
+  text-align: center;
+  line-height: 50px;
+  height: 50px;
+  background-color: red;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 </style>
