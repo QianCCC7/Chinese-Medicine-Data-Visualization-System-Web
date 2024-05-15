@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import {createRouter, createWebHistory} from "vue-router";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -18,6 +18,12 @@ const router = createRouter({
                     path: 'test2',
                     name: 'test2',
                     component: () => import("@/components/Test2.vue")
+                },
+                // 中医方剂
+                {
+                    path: 'prescription',
+                    name: 'prescription',
+                    component: () => import("@/views/Prescription.vue")
                 },
             ]
         },

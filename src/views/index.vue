@@ -49,8 +49,7 @@ export default {
 }
 #main {
   width: calc(100% - 200px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* 实现当main组件数据过多时，滚轮仅出现在main组件内，而不是container */
+  overflow-y: auto;
 }
 </style>

@@ -48,10 +48,10 @@
         <template #title>Navigator Four</template>
       </el-menu-item>
     </el-menu>
-    <div class="test" @click="testClick('test1')">
-      测试1
+    <div class="test" @click="showRouterView('prescription')">
+      中医方剂
     </div>
-    <div class="test" @click="testClick('test2')">
+    <div class="test" @click="showRouterView('test2')">
       测试2
     </div>
   </div>
@@ -80,8 +80,9 @@ export default {
     }
   },
   methods: {
-    testClick(router_name) {
-      this.$router.push({name: router_name})
+    // 根据 routerPath显示指定 main组件内容
+    showRouterView(routerPath) {
+      this.$router.push({path: routerPath})
     },
   }
 }
@@ -97,7 +98,7 @@ export default {
   text-align: center;
   line-height: 50px;
   height: 50px;
-  background-color: red;
+  background-color: deepskyblue;
   border-radius: 5px;
   margin-top: 10px;
 }
