@@ -51,8 +51,8 @@
     <div class="test" @click="showRouterView('prescription')">
       中医方剂
     </div>
-    <div class="test" @click="showRouterView('test2')">
-      测试2
+    <div class="test" @click="showRouterView('medicine-herbs')">
+      中医药材
     </div>
   </div>
 

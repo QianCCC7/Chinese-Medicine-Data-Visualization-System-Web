@@ -25,6 +25,12 @@ const router = createRouter({
                     name: 'prescription',
                     component: () => import("@/views/Prescription.vue")
                 },
+                // 中医药材
+                {
+                    path: 'medicine-herbs',
+                    name: 'medicine-herbs',
+                    component: () => import("@/views/MedicineHerbs.vue")
+                },
             ]
         },
 

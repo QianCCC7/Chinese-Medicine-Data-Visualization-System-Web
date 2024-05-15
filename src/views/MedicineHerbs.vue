@@ -1,19 +1,19 @@
 <template>
   <div class="card-wrapper">
-    <div class="card" v-for="(item, index) in prescriptionData" :key="index">
+    <div class="card" v-for="(item, index) in medicineHerbsData" :key="index">
       <img class="card-img" :src="item.url" :alt="item.name">
       <div class="card-info">
         <p>
-          <span class="card-info-title">方剂名称: </span>
+          <span class="card-info-title">药材名称: </span>
           <span class="card-info-text">{{ item.name }}</span>
         </p>
         <p class="card-info-benefits-limit">
-          <span class="card-info-title">方剂功用: </span>
+          <span class="card-info-title">药材功用: </span>
           <span class="card-info-text">{{ item.benefits }}</span>
         </p>
         <p class="card-info-treat-limit">
-          <span class="card-info-title">方剂主治: </span>
-          <span class="card-info-text">{{ item.treat }}</span>
+          <span class="card-info-title">药材性状: </span>
+          <span class="card-info-text">{{ item.nature }}</span>
         </p>
       </div>
     </div>
@@ -21,20 +21,20 @@
 </template>
 
 <script>
-import {getAllPrescription} from "@/api/prescription";
+import {getAllMedicineHerbs} from "@/api/medicine-herbs";
 
 export default {
-  name: "prescription",
+  name: "MedicineHerbs",
   data() {
     return {
-      prescriptionData: [], // 所有的方剂数据
+      medicineHerbsData: [], // 所有的药材数据
     }
   },
   mounted() {
-    // 初始化所有的方剂数据
-    getAllPrescription().then((res) => {
+    // 初始化所有的药材数据
+    getAllMedicineHerbs().then((res) => {
       console.log(res.data)
-      this.prescriptionData = res.data
+      this.medicineHerbsData = res.data
     }).catch((err) => {
       console.log(err)
     })
@@ -71,15 +71,15 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    /* 方剂名称加粗效果 */
+    /* 药材名称加粗效果 */
     .card-info-title {
       font-weight: bold;
     }
-    /* 方剂文本设置 */
+    /* 药材文本设置 */
     .card-info-text {
       color: rgb(42, 42, 42);
     }
-    /* 方剂功用的高度限制 */
+    /* 药材功用的高度限制 */
     .card-info-benefits-limit {
       max-width: 290px;
       display: -webkit-box;
@@ -88,7 +88,7 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    /* 方剂主治的高度限制 */
+    /* 药材主治的高度限制 */
     .card-info-treat-limit {
       max-width: 290px; /* 容器的最大宽度 */
       display: -webkit-box;
