@@ -31,6 +31,12 @@ const router = createRouter({
                     name: 'medicine-herbs',
                     component: () => import("@/views/MedicineHerbs.vue")
                 },
+                // 知识图谱
+                {
+                    path: 'knowledge-graph',
+                    name: 'knowledge-graph',
+                    component: () => import('@/views/KnowledgeGraph.vue')
+                }
             ]
         },
 

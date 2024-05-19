@@ -54,6 +54,9 @@
     <div class="test" @click="showRouterView('medicine-herbs')">
       中医药材
     </div>
+    <div class="test" @click="showRouterView('knowledge-graph')">
+      知识图谱
+    </div>
   </div>
 
 </template>
