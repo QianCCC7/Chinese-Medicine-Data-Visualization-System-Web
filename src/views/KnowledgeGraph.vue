@@ -4,17 +4,16 @@
 
 <script>
 import * as echarts from "echarts";
-import {test} from "@/api/knowledge-graph";
+import {initGraph, changeDisplayedNodes} from "@/api/knowledge-graph";
 
 export default {
   name: "KnowledgeGraph",
   data() {
     return {
-      nodes: [],
-      relations: [],
-      categories: [],
-      medicineHerbsCategory: [],
-      prescriptionCategory: [],
+      nodes: [], // 所有的节点数据
+      relations: [], // 所有的边
+      categories: [], // 所有的分类，包括药材分类，用于区分颜色
+      prescriptionCategory: [], // 所有的方剂分类
       selected: {},  // 该对象用于初始化方剂图例的分类节点显示与否，只展示第一个分类节点
     }
   },
@@ -70,7 +69,6 @@ export default {
           },
           emphasis: {
             focus: 'adjacency', // 节点被高亮时，与该节点相邻的其他节点也会被强调显示
-            focusDelay: 2000, // 根据需要调整延迟时间
             lineStyle: {
               normal: {
                 width: 20 // 高亮时连线的宽度为10个像素
@@ -110,29 +108,36 @@ export default {
         op.series[0].data[params.dataIndex].fixed = true;
         myEcharts.setOption(op);
       });
+      let that = this
+      myEcharts.on('legendselectchanged', function (params) {
+        // console.log('监听图例点击')
+        // 当用户点击图例时，更新当前需要展示的药材和方剂节点
+        changeDisplayedNodes(params.selected).then((response) => {
+          that.nodes = response.data
+          myEcharts.setOption({
+            series: [{
+              data: that.nodes
+            }]
+          });
+        })
+      })
     },
+
   },
   mounted() {
-    test().then((response) => {
-      for (let n of response.data.nodes) {
-        this.nodes.push(n)
-      }
-      for (let r of response.data.relations) {
-        this.relations.push(r)
-      }
-      for (let c of response.data.medicineHerbsCategory) {
-        this.medicineHerbsCategory.push(c)
-        this.categories.push(c)
-      }
-      for (let c of response.data.prescriptionCategory) {
-        this.prescriptionCategory.push(c)
-        this.categories.push(c)
-      }
+    initGraph().then((response) => {
+      // 1. 所有节点
+      this.nodes = response.data.nodes
+      // 2. 所有边
+      this.relations = response.data.relations
+      // 3. 添加药材分类
+      this.categories = response.data.medicineHerbsCategory
+      // 4. 添加方剂分类
       let p = response.data.prescriptionCategory
       for (let i = 0; i < p.length; i++) {
         this.prescriptionCategory.push(p[i])
         this.categories.push(p[i])
-        this.selected[p[i].name] = i === 0; // 下标为0才显示，否则不显示
+        this.selected[p[i].name] = i === 0 // 下标为0才显示，否则不显示，相当于 selected对象的 p[i].name属性 = true or false
       }
       this.initEcharts();
     })
