@@ -33,8 +33,8 @@ export default {
   mounted() {
     // 初始化所有的方剂数据
     getAllPrescription().then((res) => {
-      console.log(res.data)
-      this.prescriptionData = res.data
+      // console.log(res.data.data)
+      this.prescriptionData = res.data.data
     }).catch((err) => {
       console.log(err)
     })

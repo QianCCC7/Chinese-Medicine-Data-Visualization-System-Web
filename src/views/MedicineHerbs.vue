@@ -33,8 +33,8 @@ export default {
   mounted() {
     // 初始化所有的药材数据
     getAllMedicineHerbs().then((res) => {
-      console.log(res.data)
-      this.medicineHerbsData = res.data
+      // console.log(res.data.data)
+      this.medicineHerbsData = res.data.data
     }).catch((err) => {
       console.log(err)
     })

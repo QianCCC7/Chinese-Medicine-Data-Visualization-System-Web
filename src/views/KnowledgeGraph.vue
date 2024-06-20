@@ -126,14 +126,16 @@ export default {
   },
   mounted() {
     initGraph().then((response) => {
+      let res = response.data.data;
+      console.log(res)
       // 1. 所有节点
-      this.nodes = response.data.nodes
+      this.nodes = res.nodes
       // 2. 所有边
-      this.relations = response.data.relations
+      this.relations = res.relations
       // 3. 添加药材分类
-      this.categories = response.data.medicineHerbsCategory
+      this.categories = res.medicineHerbsCategory
       // 4. 添加方剂分类
-      let p = response.data.prescriptionCategory
+      let p = res.prescriptionCategory
       for (let i = 0; i < p.length; i++) {
         this.prescriptionCategory.push(p[i])
         this.categories.push(p[i])
