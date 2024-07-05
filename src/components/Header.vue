@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="header">
     这是 Header.vue
   </div>
 </template>
@@ -11,5 +11,10 @@ export default {
 </script>
 
 <style scoped>
-
+#header {
+  height: 50px;
+  background-color: white;
+  text-align: center;
+  line-height: 50px;
+}
 </style>
