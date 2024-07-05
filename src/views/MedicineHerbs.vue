@@ -99,10 +99,18 @@ export default {
     }
   }
 }
-
+@keyframes moveToTopLeft {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-.08rem, -.08rem);
+  }
+}
 .card:hover {
   /* offset-x, offset-y, 阴影的模糊半径，阴影半径，color */
   box-shadow: 1px 1px 3px 3px rgba(89, 89, 89, 0.37);
-  cursor: pointer;
+  transform: translate(-2px, -2px); /* 向左上角移动 */
+  animation: moveToTopLeft 0.1s ease-in-out;
 }
 </style>
