@@ -1,38 +1,27 @@
 <template>
-  <div class="menu-wrapper">
-    <div class="menu" @click="showRouterView('prescription')">
-      <div class="menu-box selected-menu-box" @click="changeBoxStyle($event)">
-        中医方剂
-      </div>
-    </div>
-    <div class="menu" @click="showRouterView('medicine-herbs')">
-      <div class="menu-box" @click="changeBoxStyle($event)">
-        中医药材
-      </div>
-    </div>
-    <div class="menu" @click="showRouterView('knowledge-graph')">
-      <div class="menu-box" @click="changeBoxStyle($event)">
-        知识图谱
-      </div>
-    </div>
-    <div class="menu" @click="showRouterView('data-screen')">
-      <div class="menu-box" @click="changeBoxStyle($event)">
-        数据大屏
+  <div class="menu-wrapper" >
+    <div class="menu" v-for="(item, index) in menuData" :key="index">
+      <div @click="showRouterView(item.componentPath)" :class="index === 0 ? 'selected-menu-box' : ''">
+        <div class="menu-box" @click="changeBoxStyle($event)">
+          <span class="menu-box-icon" :style="{'--bgicon': `${item.menuIcon}`}"></span>
+          <div class="menu-box-name">
+            {{ item.menuName }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
 import {Menu} from "@element-plus/icons-vue";
-
+import {getAllMenus} from "@/api/menu";
 export default {
   name: "LeftSide",
   components: {Menu},
   data() {
     return {
-      isCollapse: true,
+      menuData: {}, // 所有的菜单数据
     }
   },
   methods: {
@@ -47,11 +36,25 @@ export default {
       // 设置当前盒子为 selected-menu-box样式
       event.currentTarget.className = 'selected-menu-box'
     },
-  }
+  },
+  mounted() {
+    // 初始化所有菜单
+    getAllMenus().then((response) => {
+      this.menuData = response.data.data;
+    }).catch((error) => {
+      console.log(error)
+    })
+  },
 }
 </script>
 
 <style scoped>
+@font-face {
+  font-family: "iconfont";
+  src: url('@/assets/fonts/iconfont.woff2?t=1720354832939') format('woff2'),
+  url('@/assets/fonts/iconfont.woff?t=1720354832939') format('woff'),
+  url('@/assets/fonts/iconfont.ttf?t=1720354832939') format('truetype');
+}
 /* 左边菜单栏盒子 */
 .menu-wrapper {
   width: 200px;
@@ -60,27 +63,30 @@ export default {
   flex-direction: column;
   justify-content: center;
   /* 菜单样式 */
+
   .menu {
     text-align: center;
     height: 65px;
     line-height: 65px;
     color: white;
     position: relative;
-  }
-  .menu:hover {
-    cursor: pointer;
-    .menu-box {
-      color: rgb(17, 76, 245);
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 180px;
-      background-color: rgb(240,245,249); /* 设置你想要的背景颜色 */
-      border-top-left-radius: 60px;
-      border-bottom-left-radius: 60px;
+    &:hover {
+      cursor: pointer;
+
+      .menu-box {
+        color: rgb(17, 76, 245);
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 180px;
+        background-color: rgb(240, 245, 249); /* 设置你想要的背景颜色 */
+        border-top-left-radius: 60px;
+        border-bottom-left-radius: 60px;
+      }
     }
   }
 }
+
 /* 菜单栏被选中时样式 */
 .selected-menu-box {
   color: rgb(17, 76, 245);
@@ -88,8 +94,22 @@ export default {
   right: 0;
   top: 0;
   width: 180px;
-  background-color: rgb(240,245,249); /* 设置你想要的背景颜色 */
+  background-color: rgb(240, 245, 249); /* 设置你想要的背景颜色 */
   border-top-left-radius: 60px;
   border-bottom-left-radius: 60px;
 }
+
+/* 菜单栏前面小图标 */
+.menu-box-icon {
+  position: relative;
+  &::before{
+    font-family: 'iconfont';
+    content: var(--bgicon);
+    font-size: 24px;
+    position: absolute;
+    left: -73px;
+    top: 0;
+  }
+}
+
 </style>

@@ -1,9 +1,9 @@
 import request, {Method} from "@/utils/request";
 
-// 获取所有的方剂
-export function getAllPrescription() {
+// 获取所有菜单
+export function getAllMenus() {
     return request({
-        url: `/prescription`,
+        url: `/menu`,
         method: Method.GET,
     })
 }

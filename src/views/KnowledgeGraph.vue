@@ -142,6 +142,8 @@ export default {
         this.selected[p[i].name] = i === 0 // 下标为0才显示，否则不显示，相当于 selected对象的 p[i].name属性 = true or false
       }
       this.initEcharts();
+    }).catch((error) => {
+      console.log(error)
     })
   }
 }

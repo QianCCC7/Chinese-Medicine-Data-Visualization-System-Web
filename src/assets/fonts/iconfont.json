@@ -1,0 +1,44 @@
+{
+  "id": "4045357",
+  "name": "我的icon",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "12354621",
+      "name": "dc-icon-科技服务",
+      "font_class": "dc-icon-kejifuwu",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    },
+    {
+      "icon_id": "15383969",
+      "name": "统计2",
+      "font_class": "tongji2",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "17118423",
+      "name": "原材料系列",
+      "font_class": "yuancailiaoxilie",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "17127076",
+      "name": "粉碎系列",
+      "font_class": "fensuixilie",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "35803045",
+      "name": "AI",
+      "font_class": "AI",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    }
+  ]
+}

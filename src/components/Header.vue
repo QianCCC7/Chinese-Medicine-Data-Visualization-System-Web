@@ -1,6 +1,8 @@
 <template>
   <div id="header">
-    这是 Header.vue
+    <h3>
+      中医药数据可视化平台
+    </h3>
   </div>
 </template>
 
