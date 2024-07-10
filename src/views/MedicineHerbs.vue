@@ -46,12 +46,14 @@ export default {
       pageNum: 1, // 当前页码
       pageSize: 20, // 每页显示条数
       pageSizes: [20, 40, 60, 80], // 页码选择器的选项
-      total: '', // 总记录数
+      total: 0, // 总记录数
       background: ref(true) // 页码框显示颜色
     }
   },
   mounted() {
     // 分页查询药材数据
+    this.pageNum = this.$route.query.pageNum ? parseInt(this.$route.query.pageNum) : 1
+    this.pageSize = this.$route.query.pageSize ? parseInt(this.$route.query.pageSize) : 20
     this.getMedicineHerbsPage(this.pageNum, this.pageSize)
   },
   methods: {
@@ -67,9 +69,9 @@ export default {
     },
     // 修改每页展示条数
     handleSizeChange(newPageSize) {
-      this.pageSize = newPageSize;
+      this.pageSize = newPageSize
       this.$router.push({
-        path: '/medicine-herbs/page',
+        path: `/medicine-herbs/page`,
         query: {
           pageNum: this.pageNum,
           pageSize: newPageSize
