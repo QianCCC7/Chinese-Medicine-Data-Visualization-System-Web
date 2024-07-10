@@ -3,7 +3,7 @@
     <div class="menu" v-for="(item, index) in menuData" :key="index">
       <div @click="showRouterView(item.componentPath)" :class="index === 0 ? 'selected-menu-box' : ''">
         <div class="menu-box" @click="changeBoxStyle($event)">
-          <span class="menu-box-icon" :style="{'--bgicon': `${item.menuIcon}`}"></span>
+          <span class="menu-box-icon" :style="{'--menuIcon': `${item.menuIcon}`}"></span>
           <div class="menu-box-name">
             {{ item.menuName }}
           </div>
@@ -104,7 +104,7 @@ export default {
   position: relative;
   &::before{
     font-family: 'iconfont';
-    content: var(--bgicon);
+    content: var(--menuIcon);
     font-size: 24px;
     position: absolute;
     left: -73px;
