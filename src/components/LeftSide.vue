@@ -1,8 +1,8 @@
 <template>
   <div class="menu-wrapper" >
     <div class="menu" v-for="(item, index) in menuData" :key="index">
-      <div @click="showRouterView(item.componentPath)" :class="index === 0 ? 'selected-menu-box' : ''">
-        <div class="menu-box" @click="changeBoxStyle($event)">
+      <div @click="showRouterView(item.componentPath)" >
+        <div class="menu-box" @click="changeBoxStyle($event)" :class="isSelected(item) ? 'selected-menu-box' : ''">
           <span class="menu-box-icon" :style="{'--menuIcon': `${item.menuIcon}`}"></span>
           <div class="menu-box-name">
             {{ item.menuName }}
@@ -25,6 +25,10 @@ export default {
     }
   },
   methods: {
+    // 判断菜单栏是否被选中
+    isSelected(item) {
+      return item.componentPath === this.$route.path || this.$route.path.startsWith(item.componentPath);
+    },
     // 根据 routerPath显示指定 main组件内容
     showRouterView(routerPath) {
       this.$router.push({path: routerPath})
