@@ -19,14 +19,21 @@ const router = createRouter({
                 {
                     path: 'medicine-herbs',
                     name: 'medicine-herbs',
-                    component: () => import("@/views/MedicineHerbs.vue")
+                    component: () => import("@/views/MedicineHerbs.vue"),
+                    children: [
+                        {
+                            path: 'page',
+                            name: 'medicine-herbs-page',
+                            component: () => import("@/views/MedicineHerbs.vue"),
+                        }
+                    ]
                 },
                 // 知识图谱
                 {
                     path: 'knowledge-graph',
                     name: 'knowledge-graph',
                     component: () => import('@/views/KnowledgeGraph.vue')
-                }
+                },
             ]
         },
 

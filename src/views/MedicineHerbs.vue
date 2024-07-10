@@ -68,11 +68,25 @@ export default {
     // 修改每页展示条数
     handleSizeChange(newPageSize) {
       this.pageSize = newPageSize;
+      this.$router.push({
+        path: '/medicine-herbs/page',
+        query: {
+          pageNum: this.pageNum,
+          pageSize: newPageSize
+        }
+      });
       this.getMedicineHerbsPage(this.pageNum, newPageSize)
     },
     // 修改当前页码
     handleCurrentChange(newPageNum) {
       this.pageNum = newPageNum
+      this.$router.push({
+        path: `/medicine-herbs/page`,
+        query: {
+          pageNum: newPageNum,
+          pageSize: this.pageSize
+        }
+      })
       this.getMedicineHerbsPage(newPageNum, this.pageSize)
     }
   }
