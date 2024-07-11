@@ -8,6 +8,7 @@ export function getAllMedicineHerbs() {
     })
 }
 
+// 分页获取药材数据
 export function getMedicineHerbsPage(pageNum, pageSize) {
     return request({
         url: `/medicine-herbs/page?pageNum=${pageNum}&pageSize=${pageSize}`,

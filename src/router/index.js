@@ -13,7 +13,14 @@ const router = createRouter({
                 {
                     path: 'prescription',
                     name: 'prescription',
-                    component: () => import("@/views/Prescription.vue")
+                    component: () => import("@/views/Prescription.vue"),
+                    children: [
+                        {
+                            path: 'page',
+                            name: 'prescription-page',
+                            component: () => import("@/views/Prescription.vue"),
+                        }
+                    ]
                 },
                 // 中医药材
                 {
@@ -34,6 +41,7 @@ const router = createRouter({
                     name: 'knowledge-graph',
                     component: () => import('@/views/KnowledgeGraph.vue')
                 },
+
             ]
         },
 

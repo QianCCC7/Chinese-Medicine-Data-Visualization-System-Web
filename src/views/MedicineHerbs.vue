@@ -99,7 +99,7 @@ export default {
 .box {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .card-wrapper {
@@ -178,6 +178,7 @@ export default {
 
 /* 分页栏 */
 .page-footer {
+  margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;
 }
