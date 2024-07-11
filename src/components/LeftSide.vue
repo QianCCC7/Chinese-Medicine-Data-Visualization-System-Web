@@ -35,9 +35,8 @@ export default {
     },
     // 鼠标点击菜单栏时，固定对应菜单栏的样式
     changeBoxStyle(event) {
-      // 清除已设置 selected-menu-box的盒子样式
+      // 清除 selected-menu-box样式，并为当前盒子设置
       document.getElementsByClassName("selected-menu-box")[0].className = 'menu-box'
-      // 设置当前盒子为 selected-menu-box样式
       event.currentTarget.className = 'selected-menu-box'
     },
   },
@@ -72,7 +71,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   /* 菜单样式 */
-
   .menu {
     text-align: center;
     height: 65px;
@@ -81,21 +79,20 @@ export default {
     position: relative;
     &:hover {
       cursor: pointer;
-
       .menu-box {
         color: rgb(17, 76, 245);
         position: absolute;
         right: 0;
         top: 0;
         width: 180px;
-        background-color: rgb(240, 245, 249); /* 设置你想要的背景颜色 */
+        background-color: rgb(240, 245, 249);
         border-top-left-radius: 60px;
         border-bottom-left-radius: 60px;
+        transition: all 0.6s linear;
       }
     }
   }
 }
-
 /* 菜单栏被选中时样式 */
 .selected-menu-box {
   color: rgb(17, 76, 245);
@@ -103,7 +100,7 @@ export default {
   right: 0;
   top: 0;
   width: 180px;
-  background-color: rgb(240, 245, 249); /* 设置你想要的背景颜色 */
+  background-color: rgb(240, 245, 249);
   border-top-left-radius: 60px;
   border-bottom-left-radius: 60px;
 }
