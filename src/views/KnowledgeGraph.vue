@@ -127,7 +127,6 @@ export default {
   mounted() {
     initGraph().then((response) => {
       let res = response.data.data;
-      console.log(res)
       // 1. 所有节点
       this.nodes = res.nodes
       // 2. 所有边
@@ -139,7 +138,7 @@ export default {
       for (let i = 0; i < p.length; i++) {
         this.prescriptionCategory.push(p[i])
         this.categories.push(p[i])
-        this.selected[p[i].name] = i === 0 // 下标为0才显示，否则不显示，相当于 selected对象的 p[i].name属性 = true or false
+        this.selected[p[i].name] = i === 0 // 下标为0才显示，否则不显示，相当于 selected对象的 p[i].name属性 = true/false
       }
       this.initEcharts();
     }).catch((error) => {

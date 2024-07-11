@@ -45,6 +45,11 @@ export default {
     // 初始化所有菜单
     getAllMenus().then((response) => {
       this.menuData = response.data.data;
+      // 初始化渲染第一个菜单数据并且高亮菜单
+      this.$nextTick(() => {
+        document.getElementsByClassName("menu-box")[0].className = 'selected-menu-box'
+        this.$router.push({path: this.menuData[0].componentPath})
+      });
     }).catch((error) => {
       console.log(error)
     })
