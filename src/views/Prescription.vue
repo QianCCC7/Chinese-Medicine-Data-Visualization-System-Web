@@ -158,6 +158,12 @@ export default {
       text-overflow: ellipsis;
     }
   }
+  &:hover {
+    /* offset-x, offset-y, 阴影的模糊半径，阴影半径，color */
+    box-shadow: 1px 1px 3px 3px rgba(90, 90, 90, 0.35);
+    transform: translate(-2px, -2px); /* 向左上角移动 */
+    animation: moveToTopLeft 0.1s ease-in-out;
+  }
 }
 @keyframes moveToTopLeft {
   from {
@@ -166,12 +172,6 @@ export default {
   to {
     transform: translate(-.08rem, -.08rem);
   }
-}
-.card:hover {
-  /* offset-x, offset-y, 阴影的模糊半径，阴影半径，color */
-  box-shadow: 1px 1px 3px 3px rgba(90, 90, 90, 0.35);
-  transform: translate(-2px, -2px); /* 向左上角移动 */
-  animation: moveToTopLeft 0.1s ease-in-out;
 }
 
 /* 分页栏 */

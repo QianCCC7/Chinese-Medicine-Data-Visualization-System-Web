@@ -46,8 +46,21 @@ export default {
       this.menuData = response.data.data;
       // 初始化渲染第一个菜单数据并且高亮菜单
       this.$nextTick(() => {
-        document.getElementsByClassName("menu-box")[0].className = 'selected-menu-box'
-        this.$router.push({path: this.menuData[0].componentPath})
+        let path = this.$route.path ? this.$route.path : this.menuData[0].path
+        let query = this.$route.query
+        // 当没有其他菜单高亮时，才高亮第一个菜单
+        if (document.getElementsByClassName('selected-menu-box').length === 0) {
+          document.getElementsByClassName("menu-box")[0].className = 'selected-menu-box'
+        }
+        // 如果有 query参数则携带 query参数
+        if(Object.keys(query).length === 0) {
+          this.$router.push({path: path})
+        } else {
+          this.$router.push({
+            path: path,
+            query: query
+          })
+        }
       });
     }).catch((error) => {
       console.log(error)
