@@ -44,9 +44,13 @@ export default {
     // 初始化所有菜单
     getAllMenus().then((response) => {
       this.menuData = response.data.data;
+      console.log(this.menuData)
       // 初始化渲染第一个菜单数据并且高亮菜单
       this.$nextTick(() => {
-        let path = this.$route.path ? this.$route.path : this.menuData[0].path
+        let path = this.$route.path
+        if (path === '/') {
+          path = this.menuData[0].componentPath
+        }
         let query = this.$route.query
         // 当没有其他菜单高亮时，才高亮第一个菜单
         if (document.getElementsByClassName('selected-menu-box').length === 0) {
