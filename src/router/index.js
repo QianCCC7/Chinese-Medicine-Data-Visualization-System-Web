@@ -41,7 +41,18 @@ const router = createRouter({
                     name: 'knowledge-graph',
                     component: () => import('@/views/KnowledgeGraph.vue')
                 },
-
+                // 数据大屏
+                {
+                    path: 'data-screen',
+                    name: 'data-screen',
+                    component: () => import('@/views/DataScreen.vue')
+                },
+                // 智能问答
+                {
+                    path: 'intelligent-QA',
+                    name: 'intelligent-QA',
+                    component: () => import('@/views/IntelligentQA.vue')
+                },
             ]
         },
 
