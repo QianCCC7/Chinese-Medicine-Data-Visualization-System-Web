@@ -8,6 +8,7 @@
         :before-upload="beforeAvatarUpload"
         :http-request="handleUploadAvatar"
         :on-success="handleAvatarSuccess"
+        :show-file-list="false"
     >
       <div class="el-upload__text">
         <em>上传头像</em>
