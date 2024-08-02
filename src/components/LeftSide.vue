@@ -44,7 +44,6 @@ export default {
     // 初始化所有菜单
     getAllMenus().then((response) => {
       this.menuData = response.data.data;
-      console.log(this.menuData)
       // 初始化渲染第一个菜单数据并且高亮菜单
       this.$nextTick(() => {
         let path = this.$route.path

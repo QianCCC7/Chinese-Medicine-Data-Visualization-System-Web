@@ -53,9 +53,15 @@ const router = createRouter({
                     name: 'intelligent-QA',
                     component: () => import('@/views/IntelligentQA.vue')
                 },
+
             ]
         },
-
+        // 登录
+        {
+            path: '/login',
+            name: 'login',
+            component: () => import('@/views/login/Login.vue')
+        }
     ],
 });
 
