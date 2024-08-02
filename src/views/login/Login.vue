@@ -13,8 +13,10 @@
       <img src="@/assets/login/register.svg" alt="注册" class="to_login_image">
     </div>
     <div class="inner_sign_up_wrapper">
-      <LoginForm :class="{'moveRight': moveRight}"></LoginForm>
-      <RegisterForm :class="{'moveRight': moveRight}"></RegisterForm>
+      <div class="inner_sign_up_wrapper_border">
+        <RegisterForm :class="{'moveRight': moveRight}"></RegisterForm>
+        <LoginForm :class="{'moveRight': moveRight}"></LoginForm>
+      </div>
     </div>
   </div>
 </template>
@@ -49,24 +51,23 @@ export default {
   overflow: hidden;
   display: flex;
   flex-direction: row;
-
+  /* 四分之一圆样式默认左侧 */
   &::before {
     content: '';
     background-color: rgb(160, 210, 35);
     height: 2000px;
     width: 2000px;
     position: absolute;
-    border-radius: 50%;
-    transform: translateY(-50%);
     top: -20%;
     right: 48%;
+    border-radius: 50%;
+    transform: translateY(-50%);
     transition: 1.8s ease-in-out;
     z-index: 2;
   }
 
-  /* 登录 */
+  /* 显示去登录按钮以及背景图 */
   .inner_left_wrapper {
-    width: 0;
     flex: 1;
     z-index: 2;
     display: flex;
@@ -84,9 +85,8 @@ export default {
     pointer-events: all;
   }
 
-  /* 注册 */
+  /* 隐藏去注册按钮以及背景图 */
   .inner_right_wrapper {
-    width: 0;
     flex: 1;
     z-index: 2;
     display: flex;
@@ -104,7 +104,7 @@ export default {
     pointer-events: none;
   }
 
-  /* 登录注册表单 */
+  /* 登录注册表单(默认在右侧，展示登录表单) */
   .inner_sign_up_wrapper {
     width: 50%;
     height: 50%;
@@ -112,16 +112,27 @@ export default {
     right: 0;
     top: 20%;
     transition: 1.8s ease-in-out;
-    display: grid;
-    grid-template-columns: 1fr;
+    /* 网格布局，登录与注册表单放在同一个网格单元格中 */
+    .inner_sign_up_wrapper_border {
+      display: grid;
+      grid-template-columns: 1fr;
+      border: 1px solid #c4c4c4;
+      max-width: 450px;
+      max-height: 230px;
+      margin: auto;
+      padding: 1% 1%;
+      transition: 1.8s ease-in-out;
+    }
   }
 }
-.login_wrapper.moveRight {
+.login_wrapper.moveRight { /* 当同时拥有这两个 class时才具有下面的 css样式 */
+  /* 四分之一圆移至右侧 */
   &::before {
     transform: translate(100%, -50%);
     transition: 1.8s ease-in-out;
     right: 52%;
   }
+  /* 隐藏去注册按钮以及背景图 */
   .inner_right_wrapper {
     .to_login_btn, .to_login_image {
       transform: translateX(0px);
@@ -129,7 +140,7 @@ export default {
     }
     pointer-events: all;
   }
-
+  /* 显示去登录按钮以及背景图 */
   .inner_left_wrapper {
     .to_register_btn, .to_register_image {
       transform: translateX(-1000px);
@@ -137,7 +148,7 @@ export default {
     }
     pointer-events: none;
   }
-
+  /* 表单向左移(展示注册表单) */
   .inner_sign_up_wrapper {
     width: 50%;
     height: 50%;
@@ -145,6 +156,10 @@ export default {
     right: 50%;
     top: 20%;
     transition: 1.8s ease-in-out;
+    .inner_sign_up_wrapper_border {
+      transition: 1.8s ease-in-out;
+      max-height: 510px;
+    }
   }
 }
 

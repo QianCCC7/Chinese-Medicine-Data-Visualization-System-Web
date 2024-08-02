@@ -8,7 +8,7 @@
       <el-input placeholder="输入密码" :prefix-icon="Lock" v-model="loginUserInfo.password" :size="'large'" show-password></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" class="login_btn" :size="'large'">登录</el-button>
+      <el-button type="primary" class="login_btn" :size="'large'">立即登录</el-button>
     </el-form-item>
   </ElForm>
 </template>
@@ -37,7 +37,6 @@ export default {
   opacity: 1;
   transition: 1.8s ease-in-out;
   /* 上下 左右 */
-  padding: 1% 25%;
   h1 {
     text-align: center;
     margin-bottom: 20px;

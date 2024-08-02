@@ -34,7 +34,7 @@
       </el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" class="register_btn" :size="'large'">注册</el-button>
+      <el-button type="primary" class="register_btn" :size="'large'">立即注册</el-button>
     </el-form-item>
   </ElForm>
 </template>
@@ -86,7 +86,6 @@ export default {
   opacity: 0;
   transition: 1.8s ease-in-out;
   /* 上下 左右 */
-  padding: 1% 25%;
   h1 {
     text-align: center;
     margin-bottom: 10px;
