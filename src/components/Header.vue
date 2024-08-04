@@ -5,8 +5,8 @@
     </h3>
     <div class="user_wrapper" @click="showLogout()" tabindex="0" @blur="hiddenLogout()">
       <div class="user_info">
-        <img :src="loginUserInfo.avatar" alt="用户头像" class="user_avatar">
-        <p>{{ loginUserInfo.username }}</p>
+        <img :src="obtainLoginUserAvatar" alt="用户头像" class="user_avatar">
+        <p>{{ obtainLoginUsername }}</p>
       </div>
       <div class="user_logout" ref="user_logout">
         <ul class="user_logout_ul">
@@ -29,12 +29,20 @@ export default {
     return {
       loginUserInfo: {},
       defaultUserAvatar: require('@/assets/user_avatar/default_user_avatar.svg'), // 用户默认头像
+      defaultUsername: '用户未登录',
       displayUserLogout: false, // 是否展示退出登录窗口
     }
   },
-  mounted() {
-    this.loginUserInfo.avatar = this.defaultUserAvatar
-    this.loginUserInfo.username = '用户未登录'
+  created() {
+    this.loginUserInfo = this.$store.state.userInfo
+  },
+  computed: {
+    obtainLoginUserAvatar() {
+      return this.loginUserInfo.avatar != null ? this.loginUserInfo.avatar : this.defaultUserAvatar
+    },
+    obtainLoginUsername() {
+      return this.loginUserInfo.username != null ? this.loginUserInfo.username : this.defaultUsername
+    }
   },
   methods: {
     // 动态展示注销窗口

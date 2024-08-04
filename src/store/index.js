@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
     state: {
         token: localStorage.getItem('token') || '',
-        userInfo: localStorage.getItem('userInfo') || {}
+        userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : {}
     },
     mutations: {
         // 存储 token以及存储登录用户信息，
