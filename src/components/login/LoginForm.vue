@@ -34,7 +34,7 @@ export default {
         let data = response.data.data
         let token = data.token
         let userInfo = data.loginUserInfo
-        this.$store.commit('setUserStatus', {token, userInfo})
+        this.$store.commit('setUserStatus', {token, userInfo}) // 存入 token以及登录用户信息
         this.$router.push({path: "/"})
       }).catch((error) => {
         console.log("登录失败", error.message)

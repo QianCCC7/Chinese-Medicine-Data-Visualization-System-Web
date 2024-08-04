@@ -1,4 +1,5 @@
 import request, {Method, } from "@/utils/request";
+import store from '@/store'
 
 // 上传用户头像
 export function uploadAvatar(file) {
@@ -22,5 +23,14 @@ export function login(loginUserInfo) {
         method: Method.POST,
         headers: {'Content-Type': 'application/json'},
         data: loginUserInfo
+    })
+}
+
+// 用户退出登录
+export function logout() {
+    return request({
+        url: `logout`,
+        method: Method.POST,
+        headers: {"Authorization": store.state.token}
     })
 }

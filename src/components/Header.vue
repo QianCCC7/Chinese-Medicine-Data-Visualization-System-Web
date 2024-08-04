@@ -10,11 +10,14 @@
       </div>
       <div class="user_logout" ref="user_logout">
         <ul class="user_logout_ul">
-          <li class="user_logout_ul_li">
+          <li class="user_logout_ul_li" v-if="calcUserLoginStatus">
             个人信息
           </li>
-          <li class="user_logout_ul_li">
+          <li class="user_logout_ul_li" @click="logout" v-if="calcUserLoginStatus">
             退出登录
+          </li>
+          <li class="user_logout_ul_li" v-else @click="goToLoginOrRegister">
+            去登录/注册
           </li>
         </ul>
       </div>
@@ -23,6 +26,9 @@
 </template>
 
 <script>
+import {ElMessage, ElMessageBox} from "element-plus";
+import {logout} from "@/api/login";
+
 export default {
   name: "Header",
   data() {
@@ -33,26 +39,54 @@ export default {
       displayUserLogout: false, // 是否展示退出登录窗口
     }
   },
-  created() {
-    this.loginUserInfo = this.$store.state.userInfo
-  },
   computed: {
+    // 获取用户头像
     obtainLoginUserAvatar() {
-      return this.loginUserInfo.avatar != null ? this.loginUserInfo.avatar : this.defaultUserAvatar
+      return this.$store.state.userInfo.avatar != null ? this.$store.state.userInfo.avatar : this.defaultUserAvatar
     },
+    // 获取用户名
     obtainLoginUsername() {
-      return this.loginUserInfo.username != null ? this.loginUserInfo.username : this.defaultUsername
+      return this.$store.state.userInfo.username != null ? this.$store.state.userInfo.username : this.defaultUsername
+    },
+    // 获取用户状态
+    calcUserLoginStatus() {
+      return Object.keys(this.$store.state.userInfo).length !== 0
     }
   },
   methods: {
     // 动态展示注销窗口
     showLogout() {
       this.displayUserLogout = !this.displayUserLogout
-      this.$refs.user_logout.style.display = this.displayUserLogout ? 'block' : 'none'
+      if (this.$refs.user_logout) {
+        this.$refs.user_logout.style.display = this.displayUserLogout ? 'block' : 'none'
+      }
     },
     hiddenLogout() {
       this.displayUserLogout = false;
-      this.$refs.user_logout.style.display = 'none'
+      if (this.$refs.user_logout) {
+        this.$refs.user_logout.style.display = 'none'
+      }
+    },
+    // 用户退出登录
+    logout() {
+      ElMessageBox.confirm('你确定要退出登录吗?').then(() => {
+        logout().then(() => {
+          this.$store.commit('removeUserStatus')  // 移除 token以及登录用户信息
+          ElMessage({
+            message: '已退出登录!',
+            type: 'success',
+          })
+          this.hiddenLogout()
+        }).catch((error) => {
+          console.log(error.message)
+        })
+      }).catch((error) => {
+        console.log(error.message)
+      })
+    },
+    // 跳转至登录注册页面
+    goToLoginOrRegister() {
+      this.$router.push({path: '/login'})
     }
   }
 }
