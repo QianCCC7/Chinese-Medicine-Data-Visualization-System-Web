@@ -8,13 +8,14 @@
       <el-input placeholder="输入密码" :prefix-icon="Lock" v-model="loginUserInfo.password" :size="'large'" show-password></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" class="login_btn" :size="'large'">立即登录</el-button>
+      <el-button type="primary" class="login_btn" :size="'large'" @click="login">立即登录</el-button>
     </el-form-item>
   </ElForm>
 </template>
 
 <script>
 import {Lock, User} from "@element-plus/icons-vue";
+import {login} from "@/api/login";
 
 export default {
   name: "LoginForm",
@@ -25,6 +26,19 @@ export default {
   data() {
     return {
       loginUserInfo: {}
+    }
+  },
+  methods: {
+    login() {
+      login(this.loginUserInfo).then((response) => {
+        let data = response.data.data
+        let token = data.token
+        let userInfo = data.loginUserInfo
+        this.$store.commit('setUserStatus', {token, userInfo})
+        this.$router.push({path: "/"})
+      }).catch((error) => {
+        console.log("登录失败", error.message)
+      })
     }
   }
 }

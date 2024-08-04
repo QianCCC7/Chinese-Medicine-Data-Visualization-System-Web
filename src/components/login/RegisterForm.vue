@@ -52,18 +52,10 @@ export default {
   name: "RegisterForm",
   components: {UploadFilled, Plus},
   computed: {
-    Iphone() {
-      return Iphone
-    },
-    Message() {
-      return Message
-    },
-    Lock() {
-      return Lock
-    },
-    User() {
-      return User
-    }
+    Iphone() {return Iphone},
+    Message() {return Message},
+    Lock() {return Lock},
+    User() {return User}
   },
   data() {
     return {
@@ -81,9 +73,11 @@ export default {
       const checkFileSize = imgFile.size / 1024 / 1024 <= 1;
       if (!checkFileType) {
         ElMessage.error('上传头像图片只能是 JPG/JPEG/PNG 格式!');
+        return false
       }
       if (!checkFileSize) {
         ElMessage.error('上传头像图片大小不能超过 1MB!');
+        return false
       }
       return true;
     },
@@ -95,6 +89,7 @@ export default {
         }
       }).catch((error) => {
         console.log(error)
+        return false
       })
     },
     // 上传头像成功，更新用户头像

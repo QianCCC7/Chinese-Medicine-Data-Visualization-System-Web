@@ -14,3 +14,13 @@ export function uploadAvatar(file) {
         data: formData
     });
 }
+
+// 用户登录
+export function login(loginUserInfo) {
+    return request({
+        url: `/login`,
+        method: Method.POST,
+        headers: {'Content-Type': 'application/json'},
+        data: loginUserInfo
+    })
+}
