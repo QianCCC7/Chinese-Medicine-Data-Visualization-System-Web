@@ -9,8 +9,10 @@
         :http-request="handleUploadAvatar"
         :on-success="handleAvatarSuccess"
         :show-file-list="false"
+        :limit="1"
+        :on-exceed="handleExceed"
     >
-      <div v-if="registerUserInfo.avatar" ref="avatar" class="aadd"></div>
+      <div v-if="registerUserInfo.avatar" ref="avatar"></div>
       <div v-else class="el-upload__text">
         <em>上传头像</em>
       </div>
@@ -69,6 +71,10 @@ export default {
     }
   },
   methods: {
+    // 校验上传文件数量
+    handleExceed() {
+      ElMessage.error('最多只能上传一张图片!');
+    },
     // 上传文件前的校验操作，比如文件大小、文件格式等
     beforeAvatarUpload(imgFile) {
       const checkFileType = imgFile.type === 'image/jpg' || imgFile.type === 'image/jpeg' || imgFile.type === 'image/png';

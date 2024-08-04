@@ -1,5 +1,6 @@
 import request, {Method, } from "@/utils/request";
 
+// 上传用户头像
 export function uploadAvatar(file) {
     const formData = new FormData();
     formData.append('imgFile', file);
