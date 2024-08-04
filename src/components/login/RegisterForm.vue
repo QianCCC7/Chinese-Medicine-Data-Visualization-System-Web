@@ -10,7 +10,8 @@
         :on-success="handleAvatarSuccess"
         :show-file-list="false"
     >
-      <div class="el-upload__text">
+      <div v-if="registerUserInfo.avatar" ref="avatar" class="aadd"></div>
+      <div v-else class="el-upload__text">
         <em>上传头像</em>
       </div>
     </el-upload>
@@ -42,6 +43,8 @@
 
 <script>
 import {User, Lock, Message, Iphone, Plus, UploadFilled} from "@element-plus/icons-vue";
+import {ElMessage} from "element-plus";
+import {uploadAvatar} from "@/api/login";
 
 export default {
   name: "RegisterForm",
@@ -66,15 +69,41 @@ export default {
     }
   },
   methods: {
-    beforeAvatarUpload() {
-      console.log(1)
+    // 上传文件前的校验操作，比如文件大小、文件格式等
+    beforeAvatarUpload(imgFile) {
+      const checkFileType = imgFile.type === 'image/jpg' || imgFile.type === 'image/jpeg' || imgFile.type === 'image/png';
+      const checkFileSize = imgFile.size / 1024 / 1024 <= 1;
+      if (!checkFileType) {
+        ElMessage.error('上传头像图片只能是 JPG/JPEG/PNG 格式!');
+      }
+      if (!checkFileSize) {
+        ElMessage.error('上传头像图片大小不能超过 1MB!');
+      }
+      return true;
     },
-    handleUploadAvatar() {
-      console.log(2)
+    // 向后端发起请求，处理上传图片，并更新用户头像
+    handleUploadAvatar(param) {
+      uploadAvatar(param.file).then((res) => {
+        if (res.status === 200) {
+          param.onSuccess(res) // 将服务端返回的数据传递给文件上传成功的函数
+        }
+      }).catch((error) => {
+        console.log(error)
+      })
     },
-    handleAvatarSuccess() {
-      console.log(3)
-      return true
+    // 上传头像成功，更新用户头像
+    handleAvatarSuccess(res) {
+      if (res.data.code === 200) {
+        this.registerUserInfo.avatar = res.data.data
+        this.$nextTick(() => {
+          this.$refs.avatar.style.backgroundImage = `url(${this.registerUserInfo.avatar})`;
+          this.$refs.avatar.style.width = '100px'
+          this.$refs.avatar.style.height = '100px'
+          this.$refs.avatar.style.borderRadius = '50%'
+          this.$refs.avatar.style.backgroundSize = '100%'
+          this.$refs.avatar.style.transform = 'translate(-10px, -40px)';
+        })
+      }
     }
   }
 }
@@ -102,7 +131,6 @@ export default {
   transition: 1.8s ease-in-out;
   z-index: 1;
 }
-
 </style>
 
 <style>

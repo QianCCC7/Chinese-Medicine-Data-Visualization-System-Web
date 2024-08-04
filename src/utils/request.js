@@ -3,7 +3,7 @@ import axios from 'axios';
 const qs = require('qs');
 
 const service = axios.create({
-    timeout: 2000, // 请求超时时间
+    timeout: 5000, // 请求超时时间
     // 错误写法，不需要再加上后端的ip和端口号
     // baseURL: 'http://127.0.0.1:8081/api',
     baseURL: '/api',
